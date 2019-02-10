@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppLibrary", "WebAppLibrary\WebAppLibrary.csproj", "{BD76ECB2-DD35-46A1-A0C7-4D751C728F6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppLibrary", "WebAppLibrary\WebAppLibrary.csproj", "{BD76ECB2-DD35-46A1-A0C7-4D751C728F6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryData", "LibraryData\LibraryData.csproj", "{B8AA04C3-7B4D-4830-9414-461438A8639A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BD76ECB2-DD35-46A1-A0C7-4D751C728F6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD76ECB2-DD35-46A1-A0C7-4D751C728F6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD76ECB2-DD35-46A1-A0C7-4D751C728F6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8AA04C3-7B4D-4830-9414-461438A8639A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8AA04C3-7B4D-4830-9414-461438A8639A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8AA04C3-7B4D-4830-9414-461438A8639A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8AA04C3-7B4D-4830-9414-461438A8639A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
