@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using LibraryData.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,9 +21,5 @@ namespace LibraryData
         public DbSet<LibraryAsset> LibraryAssets { get; set; }
         public DbSet<Holds> Holds { get; set; }
 
-        public static implicit operator LibraryContext(LibraryAsset v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

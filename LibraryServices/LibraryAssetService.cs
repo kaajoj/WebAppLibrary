@@ -9,9 +9,10 @@ namespace LibraryServices
 {
     public class LibraryAssetService : ILibraryAsset
     {
+   
         private LibraryContext _context;
 
-        public LibraryAssetService(LibraryAsset context)
+        public LibraryAssetService(LibraryContext context)
         {
             _context = context;
         }
@@ -88,12 +89,7 @@ namespace LibraryServices
                 ? _context.Books.FirstOrDefault(book => book.Id == id).Author
                 : _context.Videos.FirstOrDefault(video => video.Id == id).Director
                   ?? "Unknown";
-
         }
 
-        IEnumerable<ILibraryAsset> ILibraryAsset.GetAll()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

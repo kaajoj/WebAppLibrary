@@ -5,7 +5,7 @@ namespace LibraryData
 {
     public interface ILibraryAsset
     {
-        IEnumerable<ILibraryAsset> GetAll();
+        IEnumerable<LibraryAsset> GetAll();
         LibraryAsset GetById(int id);
 
         void Add(LibraryAsset newAsset);

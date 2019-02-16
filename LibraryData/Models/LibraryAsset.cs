@@ -4,6 +4,8 @@ namespace LibraryData.Models
 {
     public abstract class LibraryAsset
     {
+
+
         public int Id { get; set; }
 
         [Required]
