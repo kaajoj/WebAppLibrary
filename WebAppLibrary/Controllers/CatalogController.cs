@@ -2,16 +2,19 @@
 using Microsoft.AspNetCore.Mvc;
 using LibraryData;
 using WebAppLibrary.Models.Catalog;
+using WebAppLibrary.Models.Checkout;
 
 namespace WebAppLibrary.Controllers
 {
     public class CatalogController : Controller
     {
         private ILibraryAsset _assets;
+        private ICheckout _checkouts;
 
-        public CatalogController(ILibraryAsset assets)
+        public CatalogController(ILibraryAsset assets, ICheckout checkouts)
         {
             _assets = assets;
+            _checkouts = checkouts;
         }
 
         public IActionResult Index()
@@ -41,10 +44,18 @@ namespace WebAppLibrary.Controllers
         {
             var asset = _assets.GetById(id);
 
+            var currentHolds = _checkouts.GetCurrentHolds(id)
+                .Select(a => new AssetHoldModel
+                {
+                    HoldPlaced = _checkouts.GetCurrentHoldPlaced(a.Id).ToString("d"),
+                    PatronName = _checkouts.GetCurrentHoldPatronName(a.Id)
+                });
+
             var model = new AssetDetailModel
             {
                 AssetId = id,
                 Title = asset.Title,
+                Type = _assets.GetType(id),
                 Year = asset.Year,
                 Cost = asset.Cost,
                 Status = asset.Status.Name,
@@ -52,7 +63,27 @@ namespace WebAppLibrary.Controllers
                 AuthorOrDirector = _assets.GetAuthorOrDirector(id),
                 CurrentLocation = _assets.GetCurrentLocation(id).Name,
                 DeweyCallNumber = _assets.GetDeweyIndex(id),
-                ISBN = _assets.GetIsbn(id)
+                CheckoutHistory = _checkouts.GetCheckoutHistories(id),
+                ISBN = _assets.GetIsbn(id),
+                LatestCheckout = _checkouts.GetLatestCheckout(id),
+                PatronName = _checkouts.GetCurrentCheckoutPatron(id),
+                CurrentHolds = currentHolds
+            };
+
+            return View(model);
+        }
+
+        public IActionResult Checkout(int id)
+        {
+            var asset = _assets.GetById(id);
+
+            var model = new CheckoutModel
+            {
+                AssetId = id,
+                ImageUrl = asset.ImageUrl,
+                Title = asset.Title,
+                LibraryCardId = "",
+                IsCheckedOut = _checkouts.IsCheckedOut(id)
             };
 
             return View(model);
