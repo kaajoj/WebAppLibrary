@@ -46,7 +46,7 @@ namespace LibraryServices
         {
             return _context.Holds
                 .Include(h => h.LibraryAsset)
-                .Where(h => h.LibraryAsset.Id == id);
+                .Where(a => a.LibraryAsset.Id == id);
         }
 
         public Checkout GetLatestCheckout(int assetId)
@@ -68,7 +68,7 @@ namespace LibraryServices
             _context.SaveChanges();
         }
 
-        private void UpdateAssetStatus(int assetId, string v)
+        private void UpdateAssetStatus(int assetId, string newStatus)
         {
             var item = _context.LibraryAssets
                 .FirstOrDefault(a => a.Id == assetId);
@@ -76,7 +76,7 @@ namespace LibraryServices
             _context.Update(item);
 
             item.Status = _context.Statuses
-                .FirstOrDefault(status => status.Name == "Available");
+                .FirstOrDefault(status => status.Name == newStatus);
         }
 
         private void CloseExistingCheckoutHistory(int assetId, DateTime now)
@@ -109,7 +109,7 @@ namespace LibraryServices
             _context.SaveChanges();
         }
 
-        public void CheckInItem(int assetId, int libraryCardId)
+        public void CheckInItem(int assetId)
         {
             var now = DateTime.Now;
 
@@ -132,6 +132,7 @@ namespace LibraryServices
             if (currentHolds.Any())
             {
                 CheckoutToEarliestHold(assetId, currentHolds);
+                return;
             }
 
             // otherwise, update the item status to available 
@@ -211,6 +212,7 @@ namespace LibraryServices
             var now = DateTime.Now;
 
             var asset = _context.LibraryAssets
+                .Include(a => a.Status)
                 .FirstOrDefault(a => a.Id == assetId);
 
             var card = _context.LibraryCards
@@ -239,7 +241,7 @@ namespace LibraryServices
                 .Include(h => h.LibraryCard)
                 .FirstOrDefault(h => h.Id == holdId);
 
-            var cardId = hold?.LibraryAsset.Id;
+            var cardId = hold?.LibraryCard.Id;
 
             var patron = _context.Patrons
                 .Include(p => p.LibraryCard)

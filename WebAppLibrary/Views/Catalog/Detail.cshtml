@@ -26,7 +26,7 @@
                 <p><a class="btn btn-lg btn-danger" role="button" asp-controller="Catalog" asp-action="MarkFound" asp-route-id="@Model.AssetId">Mark Item Found</a></p>
             }
 
-            @if (Model.Status == "Check Out")
+            @if (Model.Status == "Checked Out")
             {
                 <p id="itemPatron">Checked Out By: @Model.PatronName</p>
                 <p><a class="btn btn-lg btn-success" role="button" asp-controller="Catalog" asp-action="CheckIn" asp-route-id="@Model.AssetId">Check In</a></p>
@@ -37,6 +37,7 @@
             {
                 <p><a class="btn btn-lg btn-info" role="button" asp-controller="Catalog" asp-action="Checkout" asp-route-id="@Model.AssetId">Check Out</a></p>
             }
+
         </div>
         <div class="col-md-4 detailInfo">
             <table>
@@ -92,23 +93,24 @@
         <table class="table table-bordered table-hover table-condensed">
             <thead>
             <tr>
-                <th>Hold Placed</th>                   
-                <th>Patron</th>                   
+                <th>Hold Placed</th>
+                <th>Patron</th>
             </tr>
             </thead>
             <tbody>
-                @foreach (var hold in @Model.CurrentHolds)
-                {
-                    <tr>
-                        <td>
-                            @hold.HoldPlaced
-                        </td>
-                        <td>
-                            @hold.PatronName
-                        </td>
-                    </tr>
-                }
+            @foreach (var hold in @Model.CurrentHolds)
+            {
+                <tr>
+                    <td>
+                        @hold.HoldPlaced
+                    </td>
+                    <td>
+                        @hold.PatronName
+                    </td>
+                </tr>
+            }
             </tbody>
         </table>
     </div>
- </div>
+</div>
+</div>
